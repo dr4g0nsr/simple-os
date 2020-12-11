@@ -1,16 +1,16 @@
-[EXTERN int0xUnknown_handler]
-[EXTERN int0x80_handler]
-[EXTERN int0x20_handler]
-[EXTERN int0x21_handler]
-[EXTERN int0x8_handler]
-[EXTERN int0xB_handler]
-[EXTERN int0xC_handler]
-[EXTERN int0xD_handler]
-[EXTERN int0xE_handler]
-[EXTERN int0xF_handler]
+[EXTERN _int0xUnknown_handler]
+[EXTERN _int0x80_handler]
+[EXTERN _int0x20_handler]
+[EXTERN _int0x21_handler]
+[EXTERN _int0x8_handler]
+[EXTERN _int0xB_handler]
+[EXTERN _int0xC_handler]
+[EXTERN _int0xD_handler]
+[EXTERN _int0xE_handler]
+[EXTERN _int0xF_handler]
 
-[GLOBAL isr0xUnknown]
-isr0xUnknown:
+[GLOBAL _isr0xUnknown]
+_isr0xUnknown:
     cli  
     pusha
     mov ax, 0x10 ;data segment
@@ -20,7 +20,7 @@ isr0xUnknown:
     mov fs, ax
     mov ss, ax
     
-    call int0xUnknown_handler
+    call _int0xUnknown_handler
     
     mov eax, 0x10
     mov ss, ax
@@ -31,8 +31,8 @@ isr0xUnknown:
     popa
 iret 
 
-[GLOBAL isr0x80]
-isr0x80:
+[GLOBAL _isr0x80]
+_isr0x80:
     cli  
     pusha
     mov ax, 0x10 ;data segment
@@ -42,7 +42,7 @@ isr0x80:
     mov fs, ax
     mov ss, ax
     
-    call int0x80_handler
+    call _int0x80_handler
     
     mov eax, 0x10
     mov ss, ax
@@ -54,8 +54,8 @@ isr0x80:
     sti
 iret 
 
-[GLOBAL isr0x20]
-isr0x20:
+[GLOBAL _isr0x20]
+_isr0x20:
     cli   
     pusha
     mov ax, ds
@@ -66,7 +66,7 @@ isr0x20:
     mov fs, ax
     mov ss, ax
     
-    call int0x20_handler
+    call _int0x20_handler
     
     mov eax, 0x10
     mov ds, ax
@@ -78,8 +78,8 @@ isr0x20:
     sti
 iret 
 
-[GLOBAL isr0x21]
-isr0x21:
+[GLOBAL _isr0x21]
+_isr0x21:
     cli   
     pusha
     mov ax, ds
@@ -90,7 +90,7 @@ isr0x21:
     mov fs, ax
     mov ss, ax
     
-    call int0x21_handler
+    call _int0x21_handler
     
     mov eax, 0x10
     mov ds, ax
@@ -102,8 +102,8 @@ isr0x21:
     sti
 iret 
 
-[GLOBAL isr0x8] ;double fault
-isr0x8: 
+[GLOBAL _isr0x8] ;double fault
+_isr0x8: 
     cli
     pusha
     mov ax, ds
@@ -115,7 +115,7 @@ isr0x8:
     mov fs, ax
     mov ss, ax
     
-    call int0x8_handler
+    call _int0x8_handler
     
     pop eax
     mov ds, ax
@@ -127,8 +127,8 @@ isr0x8:
     sti
 iret 
 
-[GLOBAL isr0xB] ;segment not present, pushes error code
-isr0xB: 
+[GLOBAL _isr0xB] ;segment not present, pushes error code
+_isr0xB: 
     cli
     pusha
     mov ax, 0x10 ;data segment
@@ -138,7 +138,7 @@ isr0xB:
     mov fs, ax
     mov ss, ax
     
-    call int0xB_handler
+    call _int0xB_handler
     
     mov ax, 0x10
     mov ds, ax
@@ -150,8 +150,8 @@ isr0xB:
     sti
 iret 
 
-[GLOBAL isr0xC] ;stack fault
-isr0xC: 
+[GLOBAL _isr0xC] ;stack fault
+_isr0xC: 
     cli
     pusha
     mov ax, ds
@@ -163,7 +163,7 @@ isr0xC:
     mov fs, ax
     mov ss, ax
     
-    call int0xC_handler
+    call _int0xC_handler
     
     pop eax
     mov ds, ax
@@ -175,8 +175,8 @@ isr0xC:
     sti
 iret 
 
-[GLOBAL isr0xD] ;general protection fault
-isr0xD: 
+[GLOBAL _isr0xD] ;general protection fault
+_isr0xD: 
     cli
     pusha
     mov ax, ds
@@ -188,7 +188,7 @@ isr0xD:
     mov fs, ax
     mov ss, ax
     
-    call int0xD_handler
+    call _int0xD_handler
     
     pop eax
     mov ds, ax
@@ -200,8 +200,8 @@ isr0xD:
     sti
 iret 
 
-[GLOBAL isr0xE] ;page fault, pushes error code
-isr0xE: 
+[GLOBAL _isr0xE] ;page fault, pushes error code
+_isr0xE: 
     cli
     mov ebp, esp
     pusha
@@ -216,7 +216,7 @@ isr0xE:
     
     mov eax, cr2
     push eax
-    call int0xE_handler
+    call _int0xE_handler
     
     
     pop eax
@@ -229,8 +229,8 @@ isr0xE:
     sti
 iret 
 
-[GLOBAL isr0xF] ;unknown interrupt
-isr0xF: 
+[GLOBAL _isr0xF] ;unknown interrupt
+_isr0xF: 
     cli
     pusha
     mov ax, ds
@@ -242,7 +242,7 @@ isr0xF:
     mov fs, ax
     mov ss, ax
     
-    call int0xF_handler
+    call _int0xF_handler
     
     pop eax
     mov ds, ax
